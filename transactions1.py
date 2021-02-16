@@ -51,6 +51,9 @@ def main():
         cursor = cnx.cursor()
         for playername in playerdict:
             amount = playerdict[playername]
+            if "\'" in playername:
+                playername = playername.split('\'')
+                playername = playername[0] + ' ' + playername[1]
             cursor.execute("""SELECT * FROM players WHERE name = '%s'""" % playername)
             result = cursor.fetchall()
             if result == []:
